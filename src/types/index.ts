@@ -28,3 +28,5 @@ export type TMachineType = {
     id: number;
     tags: string[];
 };
+
+export type TTagItem = { color: string; label: string };

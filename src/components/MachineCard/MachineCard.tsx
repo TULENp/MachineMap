@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './MachineCard.module.css';
 import { TMachine, TTradePoint } from '../../types';
+import { TagItem } from '../TagItem/TagItem';
 
 interface IMachineCard {
     machineData: TMachine;
@@ -20,9 +21,8 @@ export function MachineCard({
                 <div>
                     <h1>#{machineData.serialNumber}</h1>
                     <div>
-                        {/*//TODO add dictionary with russian tag and color. And add TagCard */}
                         {tags.map((tag) => (
-                            <p key={tag}>{tag}</p>
+                            <TagItem tagName={tag} />
                         ))}
                     </div>
                 </div>
