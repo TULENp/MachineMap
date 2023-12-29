@@ -3,7 +3,7 @@ import { TMachine } from '../types';
 import { GetMachines } from '../service/api';
 import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
-class MachinesStore {
+export class MachinesStore {
     machines?: IPromiseBasedObservable<TMachine[]>;
 
     constructor() {
@@ -14,5 +14,3 @@ class MachinesStore {
         this.machines = fromPromise(GetMachines());
     }
 }
-
-export const machinesStore = new MachinesStore();
