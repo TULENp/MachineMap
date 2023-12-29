@@ -1,42 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styles from './MachineCard.module.css';
-import {
-    GetMachineTypes,
-    GetMachines,
-    GetTradePoints,
-} from '../../service/api';
+import { machinesStore } from '../../store/MachinesStore';
+import { observer } from 'mobx-react-lite';
 
-export function MainPage() {
-    const [machines, setMachines] = useState([]);
-    const [tradePoints, setTradePoints] = useState([]);
-    const [machineTypes, setMachineTypes] = useState([]);
-
+export const MainPage = observer(() => {
     useEffect(() => {
-        getMachines();
-        getTradePoints();
-        getMachineTypes();
+        machinesStore.getMachinesAction();
     }, []);
-
-    async function getMachines() {
-        const res = await GetMachines();
-        setMachines(res);
-    }
-
-    async function getTradePoints() {
-        const res = await GetTradePoints();
-        setTradePoints(res);
-    }
-
-    async function getMachineTypes() {
-        const res = await GetMachineTypes();
-        setMachineTypes(res);
-    }
 
     return (
         <main>
-            <p>{JSON.stringify(machines)}</p>
-            <p>{JSON.stringify(tradePoints)}</p>
-            <p>{JSON.stringify(machineTypes)}</p>
+            {machinesStore.machines?.case({
+                pending: () => <p>Загрузка</p>,
+                rejected: () => <p>Ошибка</p>,
+                fulfilled: () => (
+                    <p>{JSON.stringify(machinesStore.machines)}</p>
+                ),
+            })}
         </main>
     );
-}
+});

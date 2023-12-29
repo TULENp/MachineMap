@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants';
+import { TMachine, TMachineType, TTradePoint } from '../types';
 
 axios.defaults.baseURL = BASE_URL;
 
 // return list of machines
 export async function GetMachines() {
     return await axios
-        .get('http://localhost:3000/machines')
+        .get<TMachine[]>('/machines')
         .then((response) => response.data)
         .catch((error) => error);
 }
@@ -14,7 +15,7 @@ export async function GetMachines() {
 // return list of types (list with tags)
 export async function GetMachineTypes() {
     return await axios
-        .get('http://localhost:3000/machineTypes')
+        .get<TMachineType[]>('/machineTypes')
         .then((response) => response.data)
         .catch((error) => error);
 }
@@ -22,7 +23,7 @@ export async function GetMachineTypes() {
 // return list of trade points
 export async function GetTradePoints() {
     return await axios
-        .get('http://localhost:3000/tradePoints')
+        .get<TTradePoint[]>('/tradePoints')
         .then((response) => response.data)
         .catch((error) => error);
 }
