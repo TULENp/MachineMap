@@ -4,12 +4,13 @@ import styles from './MachineCard.module.css';
 import { machinesStore, machineTypesStore, tradePointStore } from '../../store';
 import { MachineCard } from '../../components/MachineCard';
 
+//* Display page with list of machine cards
 export const MainPage = observer(() => {
     useEffect(() => {
         // get all needed info and save to stores
-        machinesStore.getAllMachinesAction();
         machineTypesStore.getAllMachineTypesAction();
         tradePointStore.getAllTradePointsAction();
+        machinesStore.getAllMachinesAction();
     }, []);
 
     return (
@@ -24,9 +25,11 @@ export const MainPage = observer(() => {
                             key={item.id}
                             machineData={item}
                             tradePointData={tradePointStore.getTradePointByIdAction(
-                                item.id,
+                                item.tradePointId,
                             )}
-                            tags={machineTypesStore.getTagsByIdAction(item.id)}
+                            tags={machineTypesStore.getTagsByIdAction(
+                                item.typeId,
+                            )}
                         />
                     ))}
                 </>

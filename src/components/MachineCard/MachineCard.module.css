@@ -1,0 +1,51 @@
+.machineCard {
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.4rem rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    margin: 1.25rem;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: fit-content;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.serialNumber {
+    margin-right: 2rem;
+    font-size: 1.5rem;
+}
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.address,
+.floor {
+    margin-bottom: 0.5rem;
+}
+
+.button {
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: 0.1rem solid #007bff;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+    background-color: white;
+    color: #007bff;
+}

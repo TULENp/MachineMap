@@ -1,9 +1,9 @@
 import { TTagItem } from '../types';
 import {
-    colorLightGreen,
-    colorOrange,
-    colorPurple,
-    colorRed,
+    colorBlue,
+    colorBrown,
+    colorGreen,
+    colorDarkBrown,
     colorYellow,
 } from './colors';
 
@@ -20,9 +20,9 @@ export const WEEK_DAYS = {
 };
 
 export const TAGS: Record<string, TTagItem> = {
-    only_non_cash_payments: { color: colorOrange, label: 'только безнал' },
-    coffee: { color: colorLightGreen, label: 'кофе' },
-    cashier: { color: colorRed, label: 'есть кассир' },
-    hot_chocolate: { color: colorPurple, label: 'горячий шоколад' },
+    only_non_cash_payments: { color: colorBlue, label: 'только безнал' },
+    coffee: { color: colorBrown, label: 'кофе' },
+    cashier: { color: colorGreen, label: 'есть кассир' },
+    hot_chocolate: { color: colorDarkBrown, label: 'горячий шоколад' },
     juices: { color: colorYellow, label: 'соки' },
 };
