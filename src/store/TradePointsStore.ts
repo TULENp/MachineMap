@@ -1,16 +1,25 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { TTradePoint } from '../types';
 import { GetTradePoints } from '../service/api';
-import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
 export class TradePointsStore {
-    tradePoints?: IPromiseBasedObservable<TTradePoint[]>;
+    tradePoints: TTradePoint[] = [];
+    isLoading = false;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    async getTradePointsAction() {
-        this.tradePoints = fromPromise(GetTradePoints());
+    async getAllTradePointsAction() {
+        this.isLoading = true;
+        const tradePoints = await GetTradePoints();
+        runInAction(() => {
+            this.tradePoints = tradePoints;
+            this.isLoading = false;
+        });
+    }
+
+    getTradePointByIdAction(id: number) {
+        return this.tradePoints.find((type) => type.id === id);
     }
 }

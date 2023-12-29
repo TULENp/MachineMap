@@ -1,39 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import styles from './MachineCard.module.css';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import styles from './MachineCard.module.css';
 import { machinesStore, machineTypesStore, tradePointStore } from '../../store';
+
 export const MainPage = observer(() => {
     useEffect(() => {
-        machinesStore.getMachinesAction();
-        machineTypesStore.getMachineTypesAction();
-        tradePointStore.getTradePointsAction();
+        machinesStore.getAllMachinesAction();
+        machineTypesStore.getAllMachineTypesAction();
+        tradePointStore.getAllTradePointsAction();
     }, []);
 
     return (
         <main>
-            <div>
-                {machinesStore.machines?.case({
-                    pending: () => <p>Загрузка</p>,
-                    rejected: () => <p>Ошибка</p>,
-                    fulfilled: () => (
-                        <p>{JSON.stringify(machinesStore.machines)}</p>
-                    ),
-                })}
-            </div>
-            {tradePointStore.tradePoints?.case({
-                pending: () => <p>Загрузка</p>,
-                rejected: () => <p>Ошибка</p>,
-                fulfilled: () => (
+            {machinesStore.isLoading ? (
+                <p>Загрузка</p>
+            ) : (
+                <p>{JSON.stringify(machinesStore.machines)}</p>
+            )}
+
+            {tradePointStore.isLoading ? (
+                <p>Загрузка</p>
+            ) : (
+                <>
                     <p>{JSON.stringify(tradePointStore.tradePoints)}</p>
-                ),
-            })}
-            {machineTypesStore.machineTypes?.case({
-                pending: () => <p>Загрузка</p>,
-                rejected: () => <p>Ошибка</p>,
-                fulfilled: () => (
+                    <p>
+                        {JSON.stringify(
+                            tradePointStore.getTradePointByIdAction(1),
+                        )}
+                    </p>
+                </>
+            )}
+
+            {machineTypesStore.isLoading ? (
+                <p>Загрузка</p>
+            ) : (
+                <>
                     <p>{JSON.stringify(machineTypesStore.machineTypes)}</p>
-                ),
-            })}
+                    <p>
+                        {JSON.stringify(machineTypesStore.getTagsByIdAction(1))}
+                    </p>
+                </>
+            )}
         </main>
     );
 });

@@ -1,16 +1,21 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { TMachine } from '../types';
 import { GetMachines } from '../service/api';
-import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
 export class MachinesStore {
-    machines?: IPromiseBasedObservable<TMachine[]>;
+    machines: TMachine[] = [];
+    isLoading = false;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    async getMachinesAction() {
-        this.machines = fromPromise(GetMachines());
+    async getAllMachinesAction() {
+        this.isLoading = true;
+        const machines = await GetMachines();
+        runInAction(() => {
+            this.machines = machines;
+            this.isLoading = false;
+        });
     }
 }
