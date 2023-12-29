@@ -20,6 +20,6 @@ export class MachineTypesStore {
     }
 
     getTagsByIdAction(id: number) {
-        return this.machineTypes.find((type) => type.id === id)?.tags;
+        return this.machineTypes.find((type) => type.id === id)?.tags || [];
     }
 }
