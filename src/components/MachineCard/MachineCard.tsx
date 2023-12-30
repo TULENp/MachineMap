@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './MachineCard.module.css';
 import { TMachine, TTradePoint } from '../../types';
 import { TagItem } from '../TagItem/TagItem';
-
+import { Map } from '../Map';
 interface IMachineCard {
     machineData: TMachine;
     tradePointData?: TTradePoint;
@@ -15,14 +15,13 @@ export function MachineCard({
     tradePointData,
     tags,
 }: IMachineCard) {
-
     return (
         <section className={styles.machineCard}>
             <div className={styles.cardContent}>
                 {/* serial number and tags */}
                 <div className={styles.header}>
                     <h1 className={styles.serialNumber}>
-                        #{machineData.serialNumber}
+                        № {machineData.serialNumber}
                     </h1>
                     <div className={styles.tags}>
                         {tags.map((tag) => (
@@ -43,7 +42,11 @@ export function MachineCard({
                     value={'Время работы'}
                 />
             </div>
-            {/*//TODO add map */}
+            {/* Map */}
+            <Map
+                lng={tradePointData?.location.longitude}
+                lat={tradePointData?.location.latitude}
+            />
         </section>
     );
 }
