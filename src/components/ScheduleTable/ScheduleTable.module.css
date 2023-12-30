@@ -50,3 +50,10 @@
     border-bottom: 0.15rem solid #007bff;
     align-items: center;
 }
+
+.today {
+    font-size: 1.2rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+    align-self: center;
+}

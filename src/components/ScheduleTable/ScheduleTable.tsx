@@ -7,10 +7,12 @@ interface IScheduleTable {
     workingTime: TWorkingTime;
 }
 
+type TDayKey = keyof typeof WEEK_DAYS;
+
 export function ScheduleTable({ workingTime }: IScheduleTable) {
     const today = new Date()
         .toLocaleDateString('en-US', { weekday: 'short' })
-        .toLowerCase();
+        .toLowerCase() as TDayKey;
 
     const renderSchedule = () => {
         return Object.entries(workingTime).map(([day, time]) => (
@@ -20,18 +22,35 @@ export function ScheduleTable({ workingTime }: IScheduleTable) {
                         day === today ? styles.todaySchedule : styles.schedule
                     }
                 >
-                    <span>{WEEK_DAYS[day as keyof typeof WEEK_DAYS]}</span>
+                    <span>{WEEK_DAYS[day as TDayKey]}</span>
                     <span>{time?.replace(';', ' - ') || 'Выходной'}</span>
                 </h3>
             </div>
         ));
     };
 
+    // return string depends on working time
+    function checkIsOpen() {
+        const currentWorkingTime = workingTime[today];
+        if (currentWorkingTime) {
+            const currentTime = new Date().toLocaleTimeString();
+            const [openTime, closeTime] = currentWorkingTime.split(';');
+
+            if (currentTime >= openTime && currentTime < closeTime) {
+                return 'Открыто до ' + closeTime;
+            } else {
+                return 'Закрыто до ' + openTime;
+            }
+        } else {
+            return 'Выходной';
+        }
+    }
+
     return (
         <div className={styles.scheduleContainer}>
             <div className={styles.scheduleContent}>
                 <h1>Время работы</h1>
-                {/* //TODO add "Сегодня открыто до ..."  */}
+                <h2 className={styles.today}>{checkIsOpen()}</h2>
                 {renderSchedule()}
             </div>
         </div>
