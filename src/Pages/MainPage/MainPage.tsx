@@ -51,7 +51,10 @@ export const MainPage = observer(() => {
                     <div className={styles.spinner}></div>
                 </div>
             ) : (
-                <>{renderMachineCards}</>
+                <div className={styles.container}>
+                    <div>{renderMachineCards}</div>
+                    <div id='modal'></div>
+                </div>
             )}
         </main>
     );

@@ -1,3 +1,5 @@
+import styles from './Map.module.css';
+
 interface IMap {
     lng?: number;
     lat?: number;
@@ -7,7 +9,8 @@ interface IMap {
 export function Map({ lng, lat }: IMap) {
     return (
         <img
-            src={`http://static.maps.2gis.com/1.0?&size=120,120&markers=pmgnm${lng},${lat}`}
+            className={styles.map}
+            src={`http://static.maps.2gis.com/1.0?&size=200,200&markers=pmgnm${lng},${lat}`}
             alt='2GIS map'
         />
     );

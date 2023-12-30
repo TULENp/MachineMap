@@ -1,8 +1,9 @@
-import React from 'react';
 import styles from './MachineCard.module.css';
 import { TMachine, TTradePoint } from '../../types';
 import { TagItem } from '../TagItem/TagItem';
 import { Map } from '../Map';
+import { useState } from 'react';
+import { ScheduleTable } from '../ScheduleTable';
 interface IMachineCard {
     machineData: TMachine;
     tradePointData?: TTradePoint;
@@ -15,6 +16,14 @@ export function MachineCard({
     tradePointData,
     tags,
 }: IMachineCard) {
+    const [scheduleVisible, setScheduleVisible] = useState(false);
+    const openModal = () => {
+        setScheduleVisible(true);
+    };
+
+    const closeModal = () => {
+        setScheduleVisible(false);
+    };
     return (
         <section className={styles.machineCard}>
             <div className={styles.cardContent}>
@@ -23,10 +32,13 @@ export function MachineCard({
                     <h1 className={styles.serialNumber}>
                         № {machineData.serialNumber}
                     </h1>
-                    <div className={styles.tags}>
-                        {tags.map((tag) => (
-                            <TagItem key={tag} tagName={tag} />
-                        ))}
+                    {/* tags */}
+                    <div className={styles.tagsContainer}>
+                        <div className={styles.tags}>
+                            {tags.map((tag) => (
+                                <TagItem key={tag} tagName={tag} />
+                            ))}
+                        </div>
                     </div>
                 </div>
                 {/* address */}
@@ -40,6 +52,7 @@ export function MachineCard({
                     className={styles.button}
                     type='button'
                     value={'Время работы'}
+                    onClick={openModal}
                 />
             </div>
             {/* Map */}
@@ -47,6 +60,12 @@ export function MachineCard({
                 lng={tradePointData?.location.longitude}
                 lat={tradePointData?.location.latitude}
             />
+            {scheduleVisible && tradePointData && (
+                <ScheduleTable
+                    onClose={closeModal}
+                    workingTime={tradePointData.workingTime}
+                />
+            )}
         </section>
     );
 }

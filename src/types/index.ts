@@ -13,15 +13,17 @@ export type TTradePoint = {
         latitude: number;
         longitude: number;
     };
-    workingTime: {
-        mon: string[] | null;
-        tue: string[] | null;
-        wed: string[] | null;
-        thu: string[] | null;
-        fri: string[] | null;
-        sat: string[] | null;
-        sun: string[] | null;
-    };
+    workingTime: TWorkingTime;
+};
+
+export type TWorkingTime = {
+    mon: string | null;
+    tue: string | null;
+    wed: string | null;
+    thu: string | null;
+    fri: string | null;
+    sat: string | null;
+    sun: string | null;
 };
 
 export type TMachineType = {
