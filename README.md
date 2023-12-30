@@ -44,3 +44,7 @@ yarn run dev
 или серийный номер.
 3) Диалоговое окно, отображающее время работы выбранной торговой точки.
 
+![machines](https://github.com/TULENp/MachineMap/assets/83094079/661d28e5-c43d-4b5e-a624-12ec4f52e136)
+
+![search](https://github.com/TULENp/MachineMap/assets/83094079/78f53160-ebdf-41ea-bb56-e85d97761014)
+
