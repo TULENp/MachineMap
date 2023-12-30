@@ -2,7 +2,6 @@ import styles from './MachineCard.module.css';
 import { TMachine, TTradePoint, TWorkingTime } from '../../types';
 import { TagItem } from '../TagItem/TagItem';
 import { Map } from '../Map';
-import { useState } from 'react';
 
 interface IMachineCard {
     machineData: TMachine;
@@ -18,6 +17,7 @@ export function MachineCard({
     tags,
     selectSchedule,
 }: IMachineCard) {
+    
     return (
         <section className={styles.machineCard}>
             <div className={styles.cardContent}>

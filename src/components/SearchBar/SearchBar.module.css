@@ -1,0 +1,25 @@
+/* SearchBar.module.css */
+.searchBar {
+    max-width: 650px;
+    min-width: 630px;
+    margin: 1.25rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input::placeholder {
+    color: #999;
+}
+
+.input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
+}
