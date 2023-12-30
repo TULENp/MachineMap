@@ -1,13 +1,14 @@
 import styles from './MachineCard.module.css';
-import { TMachine, TTradePoint } from '../../types';
+import { TMachine, TTradePoint, TWorkingTime } from '../../types';
 import { TagItem } from '../TagItem/TagItem';
 import { Map } from '../Map';
 import { useState } from 'react';
-import { ScheduleTable } from '../ScheduleTable';
+
 interface IMachineCard {
     machineData: TMachine;
     tradePointData?: TTradePoint;
     tags: string[];
+    selectSchedule: (workingTime?: TWorkingTime) => void;
 }
 
 //* Display card with machine data and "open schedule" button
@@ -15,22 +16,15 @@ export function MachineCard({
     machineData,
     tradePointData,
     tags,
+    selectSchedule,
 }: IMachineCard) {
-    const [scheduleVisible, setScheduleVisible] = useState(false);
-    const openModal = () => {
-        setScheduleVisible(true);
-    };
-
-    const closeModal = () => {
-        setScheduleVisible(false);
-    };
     return (
         <section className={styles.machineCard}>
             <div className={styles.cardContent}>
-                {/* serial number and tags */}
                 <div className={styles.header}>
+                    {/* serial number */}
                     <h1 className={styles.serialNumber}>
-                        № {machineData.serialNumber}
+                        #{machineData.serialNumber}
                     </h1>
                     {/* tags */}
                     <div className={styles.tagsContainer}>
@@ -52,7 +46,7 @@ export function MachineCard({
                     className={styles.button}
                     type='button'
                     value={'Время работы'}
-                    onClick={openModal}
+                    onClick={() => selectSchedule(tradePointData?.workingTime)}
                 />
             </div>
             {/* Map */}
@@ -60,12 +54,6 @@ export function MachineCard({
                 lng={tradePointData?.location.longitude}
                 lat={tradePointData?.location.latitude}
             />
-            {scheduleVisible && tradePointData && (
-                <ScheduleTable
-                    onClose={closeModal}
-                    workingTime={tradePointData.workingTime}
-                />
-            )}
         </section>
     );
 }

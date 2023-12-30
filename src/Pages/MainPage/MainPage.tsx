@@ -3,10 +3,18 @@ import { observer } from 'mobx-react-lite';
 import styles from './MainPage.module.css';
 import { machinesStore, machineTypesStore, tradePointStore } from '../../store';
 import { MachineCard } from '../../components/MachineCard';
+import { TWorkingTime } from '../../types';
+import { ScheduleTable } from '../../components/ScheduleTable';
 
 //* Display page with list of machine cards
 export const MainPage = observer(() => {
     const [isLoading, setIsLoading] = useState(false);
+
+    // set 1 machine working time to display on modal "ScheduleTable"
+    const [selectSchedule, setSelectSchedule] = useState<TWorkingTime | null>();
+    const openModal = (schedule?: TWorkingTime) => {
+        setSelectSchedule(schedule || null);
+    };
 
     useEffect(() => {
         loadData();
@@ -38,6 +46,7 @@ export const MainPage = observer(() => {
                     machineData={item}
                     tradePointData={tradePoint}
                     tags={tags}
+                    selectSchedule={openModal}
                 />
             );
         });
@@ -53,7 +62,9 @@ export const MainPage = observer(() => {
             ) : (
                 <div className={styles.container}>
                     <div>{renderMachineCards}</div>
-                    <div id='modal'></div>
+                    {selectSchedule && (
+                        <ScheduleTable workingTime={selectSchedule} />
+                    )}
                 </div>
             )}
         </main>
